@@ -17,6 +17,7 @@ public class LettuceLock {
      * 过期时间：10s
      */
     private static int EXPIRE = 10;
+    private static SetArgs setArgs = SetArgs.Builder.nx().ex(EXPIRE);
     private static String RELEASE_LUA =
             "if redis.call(\"get\",KEYS[1]) == ARGV[1] then\n" +
                     "    return redis.call(\"del\",KEYS[1])\n" +
@@ -25,7 +26,11 @@ public class LettuceLock {
                     "end";
 
     public LettuceLock() {
-        RedisURI redisURI = RedisURI.builder().withHost("127.0.0.1").withPort(6379).withDatabase(1).build();
+        RedisURI redisURI = RedisURI.builder()
+                .withHost("127.0.0.1")
+                .withPort(6379)
+                .withDatabase(1)
+                .build();
         REDIS_CLIENT = RedisClient.create(redisURI);
         CONNECTION = REDIS_CLIENT.connect();
     }
@@ -33,7 +38,7 @@ public class LettuceLock {
     public Boolean tryLock(String key, String value) {
         Boolean result = false;
         try {
-            String rc = CONNECTION.sync().set(key, value, SetArgs.Builder.nx().ex(EXPIRE));
+            String rc = CONNECTION.sync().set(key, value, setArgs);
             if ("OK".equals(rc)) {
                 result = true;
             }

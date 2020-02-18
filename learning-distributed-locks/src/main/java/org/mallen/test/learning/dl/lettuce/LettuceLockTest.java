@@ -54,19 +54,20 @@ public class LettuceLockTest {
                         soldTickets.add(tickets);
                         System.out.println(Thread.currentThread().getName() + "卖出票：" + tickets);
                         tickets--;
+                        // 执行逻辑完毕，释放锁
+                        lettuceLock.releaseLock(LOCK_KEY, uuid);
                     } else {
                         lettuceLock.releaseLock(LOCK_KEY, uuid);
                         break;
                     }
-                    lettuceLock.releaseLock(LOCK_KEY, uuid);
-                    // 如果获取到锁，则睡眠一段时间，给其他线程流出执行机会
+                    // 如果获取到锁，则在解锁后，睡眠一段时间，给其他线程留出执行机会
                     try {
                         TimeUnit.MILLISECONDS.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    // 睡眠一段时间，然后再自旋获取锁
+                    // 未获取到锁，睡眠一段时间，然后再自旋获取锁
                     try {
                         TimeUnit.MILLISECONDS.sleep(1);
                     } catch (InterruptedException e) {
