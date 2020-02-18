@@ -6,7 +6,11 @@ import java.util.UUID;
 import java.util.concurrent.*;
 
 /**
- * 使用Lettuce的api，采用Redis的单实例加锁模式，实现分布式锁
+ * 使用Lettuce的api，采用Redis的单实例加锁模式，实现分布式锁，与{@link org.mallen.test.learning.dl.redis.lettuce.LettuceLock}相比，主要有如下改进：
+ * 1. 增加获取到锁的线程的守护线程，如果业务处理时间大于锁过期时间，则为锁续时间
+ * 2. 释放锁时，发送事件告知其他节点。以解决其他节点多次自旋带来的问题
+ * TODO：
+ * 1.如果获取到锁的节点在发送解锁事件过程中出现问题，等待锁的节点就接收不到消息，从而导致死锁。所在使用了await方法的超时版本，会不会带来性能问题？
  *
  * @author mallen
  * @date 2/17/20
