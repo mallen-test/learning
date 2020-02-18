@@ -1,4 +1,4 @@
-package org.mallen.test.learning.dl;
+package org.mallen.test.learning.dl.redis;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package org.mallen.test.learning.dl.lettuce;
+package org.mallen.test.learning.dl.redis.lettuce;
 
 import java.util.HashSet;
 import java.util.Set;

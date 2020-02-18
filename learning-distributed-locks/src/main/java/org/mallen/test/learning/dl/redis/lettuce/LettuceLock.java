@@ -1,4 +1,4 @@
-package org.mallen.test.learning.dl.lettuce;
+package org.mallen.test.learning.dl.redis.lettuce;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
