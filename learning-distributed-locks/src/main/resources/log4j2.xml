@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Properties>
+		<Property name="pathRoot">/tima/log/message-admin</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{MM-dd HH:mm:ss.SSS} %5p %c{1.}: %m%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="Console" />
+		</Root>
+		<Logger name="org.mallen" level="debug" additivity="true" />
+	</Loggers>
+</Configuration>
