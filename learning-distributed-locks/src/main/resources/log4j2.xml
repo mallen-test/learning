@@ -5,13 +5,14 @@
 	</Properties>
 	<Appenders>
 		<Console name="Console" target="SYSTEM_OUT">
-			<PatternLayout pattern="%d{MM-dd HH:mm:ss.SSS} %5p %c{1.}: %m%n" />
+			<PatternLayout pattern="%d{MM-dd HH:mm:ss.SSS} %5p %t %c{1.}: %m%n" />
 		</Console>
 	</Appenders>
 	<Loggers>
 		<Root level="info">
 			<AppenderRef ref="Console" />
 		</Root>
+<!--		<Logger name="org.mallen.test.learning.dl.zookeeper" level="error" additivity="true"/>-->
 		<Logger name="org.mallen" level="debug" additivity="true" />
 	</Loggers>
 </Configuration>
