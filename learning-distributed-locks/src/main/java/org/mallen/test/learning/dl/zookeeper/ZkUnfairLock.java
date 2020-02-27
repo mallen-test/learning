@@ -82,6 +82,7 @@ public class ZkUnfairLock implements Watcher {
             zkClient.create(lockNode, locker.getBytes(), acl, CreateMode.EPHEMERAL);
             holdsLock = true;
         } catch (KeeperException e) {
+            // 节点已经存在，表示其他线程已经获取到锁
             if (e.code().equals(KeeperException.Code.NODEEXISTS)) {
                 waitForLock();
             } else {
@@ -96,13 +97,15 @@ public class ZkUnfairLock implements Watcher {
     private void waitForLock() {
         Stat stat = null;
         try {
-            // 锁已经存在，则创建监听器，监听锁删除
+            // 判断锁是否存在
             stat = zkClient.exists(lockNode, this);
             if (stat == null) {
+                // 不存在，尝试获取锁
                 checkForLock();
             } else {
-                // 等待竞争到锁
+                // 存在，等待锁删除
                 syncPoint.await();
+                // 锁已删除，尝试获取锁
                 checkForLock();
             }
         } catch (KeeperException e) {

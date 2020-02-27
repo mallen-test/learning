@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -55,7 +56,7 @@ public class ZkFairLock {
             syncPoint.await();
             // 如果获取锁成功，watcher中会设置holdsLock为true
             if (!holdsLock) {
-                throw new LockingException("错出了，不能获取到锁");
+                throw new LockingException("出错了，不能获取到锁");
             }
         } catch (InterruptedException e) {
             cancelAttempt();
@@ -141,7 +142,7 @@ public class ZkFairLock {
             if (stat != null) {
                 zkClient.delete(currentNode, -1);
             } else {
-                LOGGER.warn("调用了cleanup，但是不许要做任何清理");
+                LOGGER.warn("调用了cleanup，但是不需要做任何清理");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -167,6 +168,7 @@ public class ZkFairLock {
             try {
                 List<String> candidates = zkClient.getChildren(lockPath, null);
                 List<String> sortedMembers = Collections.unmodifiableList(candidates);
+                sortedMembers.sort(Comparator.naturalOrder());
 
                 // 没有任何的子节点，这是一种异常现象
                 if (sortedMembers.isEmpty()) {
