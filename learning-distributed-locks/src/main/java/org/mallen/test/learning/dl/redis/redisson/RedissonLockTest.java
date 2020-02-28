@@ -1,15 +1,12 @@
 package org.mallen.test.learning.dl.redis.redisson;
 
-import org.mallen.test.learning.dl.redis.lettuce.LettuceLock;
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
-import org.redisson.config.TransportMode;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
