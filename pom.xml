@@ -6,6 +6,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>learning-distributed-locks</module>
+        <module>learning-java-multithread</module>
     </modules>
 
     <parent>
