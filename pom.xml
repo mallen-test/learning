@@ -7,6 +7,7 @@
     <modules>
         <module>learning-distributed-locks</module>
         <module>learning-java-multithread</module>
+        <module>learning-collection</module>
     </modules>
 
     <parent>
@@ -22,6 +23,7 @@
     <properties>
         <redisson.version>3.12.2</redisson.version>
         <curator.version>4.2.0</curator.version>
+        <jmh.version>1.23</jmh.version>
     </properties>
 
     <dependencyManagement>
@@ -40,6 +42,19 @@
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-recipes</artifactId>
                 <version>${curator.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
+            <dependency>
+                <groupId>org.openjdk.jmh</groupId>
+                <artifactId>jmh-core</artifactId>
+                <version>${jmh.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
+            <dependency>
+                <groupId>org.openjdk.jmh</groupId>
+                <artifactId>jmh-generator-annprocess</artifactId>
+                <version>${jmh.version}</version>
+                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

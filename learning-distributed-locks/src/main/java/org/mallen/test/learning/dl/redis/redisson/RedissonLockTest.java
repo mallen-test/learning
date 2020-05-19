@@ -2,6 +2,7 @@ package org.mallen.test.learning.dl.redis.redisson;
 
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
+import org.redisson.api.RRateLimiter;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 
@@ -27,7 +28,6 @@ public class RedissonLockTest {
     public static void main(String[] args) throws InterruptedException {
         RedissonClient redisson = initRedisson();
         RLock lock = redisson.getLock(LOCK_NAME);
-
         int sellerCount = 3;
         CountDownLatch latch = new CountDownLatch(sellerCount);
         for (int i = 0; i < sellerCount; i++) {
