@@ -35,7 +35,7 @@ public class HashMapCycleTest {
         // 启动基准测试
         Options opt = new OptionsBuilder()
                 .include(HashMapCycleTest.class.getSimpleName()) // 要导入的测试类
-                .output("/home/mallen/work/IdeaProjects/test/learning/learning-collection/src/main/resources/jmh-map.log") // 输出测试结果的文件
+                .output("C:\\Users\\mallen\\Desktop\\temp\\t\\jmh-map.log") // 输出测试结果的文件
                 .build();
         new Runner(opt).run(); // 执行测试
     }
